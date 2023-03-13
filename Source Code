@@ -1,0 +1,29 @@
+# Task 4 : Image to Pencil Sketch with Python
+
+import pandas as pd
+import numpy as pd
+import cv2 as cv
+from skimage import io
+from PIL import Image
+import matplotlib.pylab as plt
+
+image = io.imread(R"C:\Users\HP\OneDrive\Desktop\rose-320868__480.jpg")
+plt.imshow(image)
+plt.show()
+
+grey_filter = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+plt.imshow(grey_filter)
+
+invert = cv.bitwise_not(grey_filter)
+plt.imshow(invert)
+
+blur = cv.GaussianBlur(invert, (21,21),0)
+plt.imshow(blur)
+
+invertedblur = cv.bitwise_not(blur)
+plt.imshow(invertedblur)
+
+sketch_filter=cv.divide (grey_filter, invertedblur, scale=255.0)
+plt.imshow(sketch_filter)
+cv.imwrite("abc.jpg", sketch_filter)
+
